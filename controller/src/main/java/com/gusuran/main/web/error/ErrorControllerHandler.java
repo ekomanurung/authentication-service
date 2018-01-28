@@ -1,4 +1,4 @@
-package com.gusuran.main.error;
+package com.gusuran.main.web.error;
 
 import com.gusuran.rest.web.model.base.BaseResponse;
 import org.slf4j.Logger;

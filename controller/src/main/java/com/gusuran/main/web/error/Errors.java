@@ -1,4 +1,4 @@
-package com.gusuran.main.error;
+package com.gusuran.main.web.error;
 
 import org.springframework.context.MessageSource;
 import org.springframework.validation.BindingResult;

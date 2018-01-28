@@ -1,6 +1,6 @@
-package com.gusuran.main.web;
+package com.gusuran.main.web.api;
 
-import com.gusuran.main.interceptor.MandatoryParameterInterceptor;
+import com.gusuran.main.web.interceptor.MandatoryParameterInterceptor;
 import com.gusuran.rest.web.model.MandatoryParameterRequest;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.servlet.http.HttpServletRequest;

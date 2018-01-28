@@ -24,7 +24,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <springfox.version>2.6.1</springfox.version>
+        <springfox.version>2.7.0</springfox.version>
         <jacoco.maven.plugin>0.7.4.201502262128</jacoco.maven.plugin>
         <hibernate.version>4.3.6.Final</hibernate.version>
         <orika.version>1.4.5</orika.version>
@@ -32,13 +32,12 @@
         <java.version>1.8</java.version>
         <apache.commons.lang3.version>3.5</apache.commons.lang3.version>
         <javax.persistence.version>1.0</javax.persistence.version>
-        <spring.boot.version>1.5.7.RELEASE</spring.boot.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.7.RELEASE</version>
+        <version>1.5.2.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -134,17 +133,17 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>1.5.2.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-configuration-processor</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>1.5.2.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
-                <version>${spring.boot.version}</version>
+                <version>1.5.2.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>

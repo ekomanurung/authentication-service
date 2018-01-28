@@ -1,6 +1,6 @@
-package com.gusuran.main.configuration;
+package com.gusuran.main.web.configuration;
 
-import com.gusuran.main.interceptor.MandatoryParameterInterceptor;
+import com.gusuran.main.web.interceptor.MandatoryParameterInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -11,16 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class WebConfiguration  extends WebMvcConfigurerAdapter{
 
-    @Bean
-    public MandatoryParameterInterceptor mandatoryParameterInterceptor(){
-        return new MandatoryParameterInterceptor();
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(mandatoryParameterInterceptor());
-    }
-
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/docs/v2/api-docs","/v2/api-docs");
@@ -29,6 +19,16 @@ public class WebConfiguration  extends WebMvcConfigurerAdapter{
         registry.addRedirectViewController("/docs/configuration/security","/configuration/security");
         registry.addRedirectViewController("/docs/swagger-resources","/swagger-resources");
         registry.addRedirectViewController("/docs", "/docs/swagger-ui.html");
+    }
+
+    @Bean
+    public MandatoryParameterInterceptor mandatoryParameterInterceptor(){
+        return new MandatoryParameterInterceptor();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry){
+        registry.addInterceptor(mandatoryParameterInterceptor());
     }
 
     @Override

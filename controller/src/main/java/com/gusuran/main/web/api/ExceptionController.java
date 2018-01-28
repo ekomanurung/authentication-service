@@ -1,7 +1,7 @@
-package com.gusuran.main.web;
+package com.gusuran.main.web.api;
 
-import com.gusuran.main.error.ErrorControllerHandler;
-import com.gusuran.main.error.ResponseException;
+import com.gusuran.main.web.error.ErrorControllerHandler;
+import com.gusuran.main.web.error.ResponseException;
 import com.gusuran.properties.ErrorsProperties;
 import com.gusuran.rest.web.model.base.BaseResponse;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 @ApiIgnore
 @RestControllerAdvice
-public class ExceptionController extends AbstractController implements ErrorControllerHandler{
+public class ExceptionController extends AbstractController implements ErrorControllerHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExceptionController.class);
 

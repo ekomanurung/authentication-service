@@ -1,4 +1,4 @@
-package com.gusuran.main.web;
+package com.gusuran.main.web.api;
 
 import com.gusuran.rest.web.model.base.BaseResponse;
 import io.swagger.annotations.Api;

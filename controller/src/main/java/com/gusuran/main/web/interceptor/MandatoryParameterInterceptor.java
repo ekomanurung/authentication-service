@@ -1,4 +1,4 @@
-package com.gusuran.main.interceptor;
+package com.gusuran.main.web.interceptor;
 
 import com.gusuran.rest.web.model.MandatoryParameterRequest;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

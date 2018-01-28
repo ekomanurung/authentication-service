@@ -1,4 +1,4 @@
-package com.gusuran.main.error;
+package com.gusuran.main.web.error;
 
 import com.gusuran.rest.web.model.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
