@@ -1,6 +1,6 @@
 package com.gusuran.authentication.web.interceptor;
 
-import com.gusuran.authentication.rest.web.model.MandatoryParameterRequest;
+import com.gusuran.authentication.rest.web.model.request.MandatoryParameterRequest;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +30,6 @@ public class MandatoryParameterInterceptor extends HandlerInterceptorAdapter {
                 .channelId(request.getHeader("channelId"))
                 .requestId(request.getHeader("requestId"))
                 .username(request.getHeader("username"))
-                .clientId(request.getHeader("clientId"))
                 .build();
     }
 }

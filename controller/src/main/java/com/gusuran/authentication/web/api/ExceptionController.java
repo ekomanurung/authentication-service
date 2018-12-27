@@ -1,82 +1,122 @@
 package com.gusuran.authentication.web.api;
 
-import com.gusuran.authentication.web.error.ResponseException;
-import com.gusuran.authentication.web.error.ErrorControllerHandler;
-import com.gusuran.authentication.properties.ErrorsProperties;
-import com.gusuran.authentication.rest.web.model.base.BaseResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
+import com.gusuran.authentication.rest.web.model.base.Response;
+import com.gusuran.authentication.web.error.ErrorHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindException;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import springfox.documentation.annotations.ApiIgnore;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 
 @ApiIgnore
 @RestControllerAdvice
-public class ExceptionController extends AbstractController implements ErrorControllerHandler {
+@Slf4j
+public class ExceptionController extends AbstractController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ExceptionController.class);
+  private ErrorHelper errorHelper;
 
-    @Autowired
-    private MessageSource messageSource;
+  public ExceptionController(ErrorHelper errorHelper) {
+    this.errorHelper = errorHelper;
+  }
 
-    @Autowired
-    private ErrorsProperties errorsProperties;
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler({MethodArgumentNotValidException.class})
+  public Response<Object> methodArgumentNotValidException(MethodArgumentNotValidException e) {
 
-    @Override
-    public Logger getLogger() {
-        return LOG;
-    }
+    return Response
+        .builder()
+        .code(HttpStatus.BAD_REQUEST.value())
+        .message(HttpStatus.BAD_REQUEST.name())
+        .errors(errorHelper.from(e.getBindingResult()))
+        .build();
+  }
 
-    @Override
-    public MessageSource getMessageSource() {
-        return messageSource;
-    }
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler({BindException.class})
+  public Response<Object> bindException(BindException e) {
 
-    @ExceptionHandler(ResponseException.class)
-    public ResponseEntity<BaseResponse<Object>> responseException(ResponseException e){
-        BaseResponse response = new BaseResponse();
-        response.setData(e.getData());
-        if(e.getErrors() != null){
-            response.setErrors(e.getErrors().getErrors());
-            translateMessage(response.getErrors());
-        }
+    return Response
+        .builder()
+        .code(HttpStatus.BAD_REQUEST.value())
+        .message(HttpStatus.BAD_REQUEST.name())
+        .errors(errorHelper.from(e.getBindingResult()))
+        .build();
+  }
 
-        if(response.getErrors() != null && response.getErrors().containsKey("system")){
-            response.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.name());
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  @ExceptionHandler({NoHandlerFoundException.class})
+  public Response<Object> noHandlerFoundException(NoHandlerFoundException e) {
 
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-        }else {
-            response.setCode(e.getHttpStatus().value());
-            response.setStatus(e.getHttpStatus().name());
+    return Response
+        .builder()
+        .code(HttpStatus.NOT_FOUND.value())
+        .message(HttpStatus.NOT_FOUND.name())
+        .build();
+  }
 
-            return ResponseEntity.status(e.getHttpStatus()).body(response);
-        }
-    }
+  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+  @ExceptionHandler({Throwable.class})
+  public Response<Object> throwable(Throwable e) {
 
-    private void translateMessage(Map<String, List<String>> errors){
-        errors.forEach((key, value) -> {
-            List<String> transformMessages = value
-                    .stream()
-                    .map(message -> {
-                        String messageMapping = errorsProperties.getMapping().get(message);
-                        if(messageMapping == null){
-                            return message;
-                        }else{
-                            return messageMapping;
-                        }
-                    }).collect(Collectors.toList());
+    return Response
+        .builder()
+        .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+        .message(HttpStatus.INTERNAL_SERVER_ERROR.name())
+        .build();
+  }
 
-            errors.put(key, transformMessages);
-        });
-    }
+  @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+  @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
+  public Response<Object> httpRequestMethodNotSupportedException(
+      HttpRequestMethodNotSupportedException e) {
+
+    return Response
+        .builder()
+        .code(HttpStatus.METHOD_NOT_ALLOWED.value())
+        .message(HttpStatus.METHOD_NOT_ALLOWED.name())
+        .build();
+  }
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler({HttpMessageNotReadableException.class})
+  public Response<Object> httpMessageReadableException(HttpMessageNotReadableException e) {
+
+    return Response
+        .builder()
+        .code(HttpStatus.BAD_REQUEST.value())
+        .message(HttpStatus.BAD_REQUEST.name())
+        .build();
+  }
+
+  @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+  @ExceptionHandler({HttpMediaTypeNotSupportedException.class})
+  public Response<Object> httpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
+
+    return Response
+        .builder()
+        .code(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value())
+        .message(HttpStatus.UNSUPPORTED_MEDIA_TYPE.name())
+        .build();
+  }
+
+  @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+  @ExceptionHandler({HttpMediaTypeNotAcceptableException.class})
+  public Response<Object> httpMediaTypeNotAcceptableException(
+      HttpMediaTypeNotAcceptableException e) {
+
+    return Response
+        .builder()
+        .code(HttpStatus.NOT_ACCEPTABLE.value())
+        .message(HttpStatus.NOT_ACCEPTABLE.name())
+        .build();
+  }
 }

@@ -1,4 +1,4 @@
-package com.gusuran.authentication.rest.web.model;
+package com.gusuran.authentication.rest.web.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

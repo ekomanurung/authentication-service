@@ -12,10 +12,10 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseResponse<T>{
+public class Response<T> {
 
-    private Integer code;
-    private String status;
-    private Map<String, List<String>> errors;
-    private T data;
+  private Integer code;
+  private String message;
+  private Map<String, List<String>> errors;
+  private T data;
 }

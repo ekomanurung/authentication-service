@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.gusuran</groupId>
-    <artifactId>authentication</artifactId>
+    <groupId>com.gusuran.authentication</groupId>
+    <artifactId>authentication-service</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
@@ -27,7 +27,7 @@
         <springfox.version>2.7.0</springfox.version>
         <jacoco.maven.plugin>0.7.4.201502262128</jacoco.maven.plugin>
         <hibernate.version>4.3.6.Final</hibernate.version>
-        <orika.version>1.4.5</orika.version>
+        <orika.version>1.4.6</orika.version>
         <rx.java.version>1.2.1</rx.java.version>
         <java.version>1.8</java.version>
         <apache.commons.lang3.version>3.5</apache.commons.lang3.version>
@@ -80,52 +80,52 @@
         <dependencies>
             <!-- modul dependency -->
             <dependency>
-                <groupId>com.gusuran</groupId>
+                <groupId>com.gusuran.authentication</groupId>
                 <artifactId>configuration</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gusuran</groupId>
+                <groupId>com.gusuran.authentication</groupId>
                 <artifactId>controller</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gusuran</groupId>
+                <groupId>com.gusuran.authentication</groupId>
                 <artifactId>service-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gusuran</groupId>
+                <groupId>com.gusuran.authentication</groupId>
                 <artifactId>service-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gusuran</groupId>
+                <groupId>com.gusuran.authentication</groupId>
                 <artifactId>model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gusuran</groupId>
+                <groupId>com.gusuran.authentication</groupId>
                 <artifactId>rest-web-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gusuran</groupId>
+                <groupId>com.gusuran.authentication</groupId>
                 <artifactId>outbound-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gusuran</groupId>
+                <groupId>com.gusuran.authentication</groupId>
                 <artifactId>outbound-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gusuran</groupId>
+                <groupId>com.gusuran.authentication</groupId>
                 <artifactId>repository-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gusuran</groupId>
+                <groupId>com.gusuran.authentication</groupId>
                 <artifactId>reposity-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -163,7 +163,7 @@
                 <version>${javax.persistence.version}</version>
             </dependency>
             <dependency>
-                <groupId>ma.glasnot.orika</groupId>
+                <groupId>ma.glasnost.orika</groupId>
                 <artifactId>orika-core</artifactId>
                 <version>${orika.version}</version>
             </dependency>
@@ -186,21 +186,37 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.16.18</version>
-                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.reactivex</groupId>
+            <artifactId>rxjava</artifactId>
+        </dependency>
+    </dependencies>
+
     <repositories>
         <repository>
-            <id>io.spring.repo.maven.release</id>
-            <url>http://repo.spring.io/release/</url>
-            <snapshots><enabled>false</enabled></snapshots>
+            <id>spring-libs-release</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
         <repository>
-            <id>io.spring.repo.maven.milestone</id>
-            <url>http://repo.spring.io/milestone/</url>
-            <snapshots><enabled>false</enabled></snapshots>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 </project>
