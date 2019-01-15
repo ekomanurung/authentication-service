@@ -1,12 +1,15 @@
 package com.gusuran.authentication.model;
 
 import lombok.Data;
+import lombok.ToString;
+import net.karneim.pojobuilder.GeneratePojoBuilder;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Data
+@GeneratePojoBuilder
 @Document(collection = "user")
 public class User extends BaseEntity implements Serializable {
 

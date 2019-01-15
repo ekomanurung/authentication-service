@@ -32,12 +32,16 @@
         <java.version>1.8</java.version>
         <apache.commons.lang3.version>3.5</apache.commons.lang3.version>
         <javax.persistence.version>1.0</javax.persistence.version>
+        <spring.boot.version>1.5.10.RELEASE</spring.boot.version>
+        <pojo.builder>2.3.3</pojo.builder>
+        <mockito.version>2.11.0</mockito.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.2.RELEASE</version>
+        <version>1.5.10.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -137,13 +141,18 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-configuration-processor</artifactId>
+                <artifactId>spring-boot-starter-security</artifactId>
                 <version>1.5.2.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-test</artifactId>
-                <version>1.5.2.RELEASE</version>
+                <version>${spring.boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -173,6 +182,11 @@
                 <version>${apache.commons.lang3.version}</version>
             </dependency>
             <dependency>
+                <groupId>net.karneim</groupId>
+                <artifactId>pojobuilder</artifactId>
+                <version>${pojo.builder}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.reactivex</groupId>
                 <artifactId>rxjava</artifactId>
                 <version>${rx.java.version}</version>
@@ -187,6 +201,18 @@
                 <artifactId>lombok</artifactId>
                 <version>1.16.18</version>
             </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -196,8 +222,24 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.reactivex</groupId>
             <artifactId>rxjava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
 

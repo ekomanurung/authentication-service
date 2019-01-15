@@ -26,6 +26,10 @@
             <artifactId>service-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.gusuran.authentication</groupId>
+            <artifactId>service-impl</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>

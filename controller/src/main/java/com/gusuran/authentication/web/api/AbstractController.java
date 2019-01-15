@@ -29,7 +29,7 @@ public class AbstractController {
   public <T> Response<T> toResponse(T data) {
     return Response.<T>builder()
         .code(HttpStatus.OK.value())
-        .message(HttpStatus.OK.toString())
+        .message("Success")
         .data(data)
         .build();
   }

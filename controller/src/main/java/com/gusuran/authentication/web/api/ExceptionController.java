@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import springfox.documentation.annotations.ApiIgnore;
 
-
 @ApiIgnore
 @RestControllerAdvice
 @Slf4j
@@ -66,6 +65,8 @@ public class ExceptionController extends AbstractController {
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ExceptionHandler({Throwable.class})
   public Response<Object> throwable(Throwable e) {
+
+    log.error("error: {}", e);
 
     return Response
         .builder()

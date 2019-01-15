@@ -30,7 +30,7 @@ public class SwaggerConfiguration {
         .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
         .paths(PathSelectors.any())
         .build()
-        .genericModelSubstitutes(Single.class, ResponseEntity.class)
+        .genericModelSubstitutes(DeferredResult.class, ResponseEntity.class)
         .globalOperationParameters(Arrays.asList(
             new ParameterBuilder().name("channelId")
                 .parameterType("header")
