@@ -9,10 +9,10 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class RegistrationServiceImplTest {
+public class UserServiceImplTest {
 
   @InjectMocks
-  private RegistrationServiceImpl service;
+  private UserServiceImpl service;
 
   @Mock
   private UserRepository userRepository;
