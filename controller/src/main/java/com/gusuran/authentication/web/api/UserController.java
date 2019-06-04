@@ -57,6 +57,10 @@ public class UserController extends AbstractController {
     public DeferredResult<Response<Boolean>> deleteUser(@PathVariable @Valid String username) {
         DeferredResult<Response<Boolean>> result = new DeferredResult<>();
 
+        userService.deleteUser(username)
+                .map(response -> toResponse(response))
+                .subscribe(value -> result.setResult(value));
+
         return result;
     }
 

@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService {
                     .withPassword(passwordEncoder.encode(password))
                     .withLastFailedLogin(null)
                     .withLastSuccessLogin(null)
-                    .withCreatedDate(new Date())
                     .build();
 
             User savedUser = userRepository.save(user);
@@ -58,6 +57,15 @@ public class UserServiceImpl implements UserService {
                             .build());
 
             subscriber.onSuccess(user);
+        });
+    }
+
+    @Override
+    public Single<Boolean> deleteUser(String username) {
+        return Single.create(subscriber -> {
+            Long updatedRow = userRepository.deleteByUsername(username);
+
+            subscriber.onSuccess(updatedRow > 0);
         });
     }
 }

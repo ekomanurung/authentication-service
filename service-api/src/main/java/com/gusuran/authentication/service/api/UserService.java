@@ -8,4 +8,6 @@ public interface UserService {
     Single<Boolean> normalRegistration(String username, String password);
 
     Single<User> findUser(String username);
+
+    Single<Boolean> deleteUser(String username);
 }
