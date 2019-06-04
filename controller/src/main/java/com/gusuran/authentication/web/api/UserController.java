@@ -35,7 +35,7 @@ public class UserController extends AbstractController {
 
         userService.findUser(username)
                 .map(response -> BeanMapper.map(response, UserResponse.class))
-                .map(response -> toResponse(response))
+                .map(this::toResponse)
                 .subscribe(value -> result.setResult(value));
 
         return result;
@@ -48,7 +48,8 @@ public class UserController extends AbstractController {
 
         userService
                 .normalRegistration(request.getUsername(), request.getPassword())
-                .map(response -> toResponse(response)).subscribe(value -> result.setResult(value));
+                .map(this::toResponse)
+                .subscribe(value -> result.setResult(value));
 
         return result;
     }
@@ -58,15 +59,8 @@ public class UserController extends AbstractController {
         DeferredResult<Response<Boolean>> result = new DeferredResult<>();
 
         userService.deleteUser(username)
-                .map(response -> toResponse(response))
+                .map(this::toResponse)
                 .subscribe(value -> result.setResult(value));
-
-        return result;
-    }
-
-    @PostMapping("/_auth")
-    public DeferredResult<Response<UserResponse>> authenticate(@RequestBody @Valid AuthenticationRequest request) {
-        DeferredResult<Response<UserResponse>> result = new DeferredResult<>();
 
         return result;
     }
@@ -74,6 +68,10 @@ public class UserController extends AbstractController {
     @PostMapping("/change-password")
     public DeferredResult<Response<Boolean>> changePassword(@RequestBody @Valid ChangePasswordRequest request) {
         DeferredResult<Response<Boolean>> result = new DeferredResult<>();
+
+        userService.changePassword(request.getUsername(), request.getOldPassword(), request.getNewPassword())
+                .map(this::toResponse)
+                .subscribe(value -> result.setResult(value));
 
         return result;
     }

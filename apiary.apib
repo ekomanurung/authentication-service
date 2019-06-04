@@ -87,7 +87,33 @@ HOST: http://polls.apiblueprint.org/
             }
         }
 
-### Authenticate user [REVIEW] [POST /api/user/_auth]
+### Change Password [REVIEW] [POST /api/user/change-password]
++ Parameters
+    + requestId
++ Request (application/json)
+        {
+            "username"   : "username",
+            "oldPassword": "my-old-password",
+            "newPassword": "my-new-password"
+        }
++ Response 200 (application/json)
+        {
+            "code"      : 200,
+            "message"   : "Success",
+            "errors"    : null,
+            "data"      : true
+        }
++ Response 400 (application/json)
+        {
+            "code"      : 400,
+            "message"   : "Bad Request",
+            "errors"    : {
+                "username"  : ["Username may not be empty"],
+                "password"  : ["Password may not be empty"]
+            }
+        }
+
+### Authenticate user [REVIEW] [POST /api/authentication/_normal]
 + Parameters
     + requestId
 + Request (application/json)
@@ -115,30 +141,4 @@ HOST: http://polls.apiblueprint.org/
         {
             "code"      : 401,
             "message"   : "Unauthorized"
-        }
-
-### Change Password [REVIEW] [POST /api/user/change-password]
-+ Parameters
-    + requestId
-+ Request (application/json)
-        {
-            "username"   : "username",
-            "oldPassword": "my-old-password",
-            "newPassword": "my-new-password"
-        }
-+ Response 200 (application/json)
-        {
-            "code"      : 200,
-            "message"   : "Success",
-            "errors"    : null,
-            "data"      : true
-        }
-+ Response 400 (application/json)
-        {
-            "code"      : 400,
-            "message"   : "Bad Request",
-            "errors"    : {
-                "username"  : ["Username may not be empty"],
-                "password"  : ["Password may not be empty"]
-            }
         }

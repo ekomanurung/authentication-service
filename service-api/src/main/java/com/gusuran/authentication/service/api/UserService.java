@@ -10,4 +10,6 @@ public interface UserService {
     Single<User> findUser(String username);
 
     Single<Boolean> deleteUser(String username);
+
+    Single<Boolean> changePassword(String username, String oldPassword, String newPassword);
 }
