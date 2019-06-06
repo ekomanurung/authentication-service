@@ -5,9 +5,7 @@ import com.gusuran.authentication.model.exception.BusinessExceptionBuilder;
 import com.gusuran.authentication.model.exception.ErrorMapping;
 import com.gusuran.authentication.repository.api.UserRepository;
 import com.gusuran.authentication.service.api.AuthenticationService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import rx.Single;
@@ -29,27 +27,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Single<User> normalAuthentication(String username, String rawPassword) {
         return Single.create(subscriber -> {
-
             User currentUser = userRepository
                     .findByUsername(username)
-                    .map(user -> {
-                        if (!validateLoginCredentials(rawPassword, user)) {
-                            int counterFailed = user.getCounterFailed() + 1;
-                            user.setCounterFailed(counterFailed);
-                            user.setLastFailedLogin(new Date());
-
-                            userRepository.save(user);
-
-                            throw new BusinessExceptionBuilder()
-                                    .withErrorCode(ErrorMapping.PASSWORD_IS_NOT_MATCH.getCode())
-                                    .withErrorMessage(ErrorMapping.PASSWORD_IS_NOT_MATCH.getMessage())
-                                    .build();
-                        }
-
-                        user.setLastSuccessLogin(new Date());
-
-                        return userRepository.save(user);
-                    })
+                    .map(user -> validateUserAccount(user))
+                    .map(user -> validateLogin(rawPassword, user))
                     .orElseThrow(() -> new BusinessExceptionBuilder()
                             .withErrorCode(ErrorMapping.USER_NOT_FOUND.getCode())
                             .withErrorMessage(ErrorMapping.USER_NOT_FOUND.getMessage()).build());
@@ -58,7 +39,49 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         });
     }
 
-    private boolean validateLoginCredentials(String rawPassword, User user) {
+    private User validateUserAccount(User user) {
+        if (user.isAccountExpired()) {
+            throw new BusinessExceptionBuilder()
+                    .withErrorCode(ErrorMapping.ACCOUNT_EXPIRED.getCode())
+                    .withErrorMessage(ErrorMapping.ACCOUNT_EXPIRED.getMessage())
+                    .build();
+        }
+
+        if (!user.isEnable()) {
+            throw new BusinessExceptionBuilder()
+                    .withErrorCode(ErrorMapping.ACCOUNT_DISABLED.getCode())
+                    .withErrorMessage(ErrorMapping.ACCOUNT_DISABLED.getMessage())
+                    .build();
+        }
+
+        return user;
+    }
+
+    private User validateLogin(String rawPassword, User user) {
+        if (!validatePasswordCredentials(rawPassword, user)) {
+            //TODO move this to dynamic constant
+            int counterFailed = user.getCounterFailed() + 1;
+            if (counterFailed >= 3) {
+                user.setEnable(false);
+            }
+
+            user.setCounterFailed(counterFailed);
+            user.setLastFailedLogin(new Date());
+            userRepository.save(user);
+
+            throw new BusinessExceptionBuilder()
+                    .withErrorCode(ErrorMapping.INVALID_PASSWORD.getCode())
+                    .withErrorMessage(ErrorMapping.INVALID_PASSWORD.getMessage())
+                    .build();
+        }
+
+        user.setLastSuccessLogin(new Date());
+        user.setCounterFailed(0);
+
+        return userRepository.save(user);
+    }
+
+    private boolean validatePasswordCredentials(String rawPassword, User user) {
         return passwordEncoder.matches(rawPassword, user.getPassword());
     }
 
