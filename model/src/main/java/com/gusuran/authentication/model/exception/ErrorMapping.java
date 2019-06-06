@@ -6,10 +6,8 @@ public enum ErrorMapping {
     BAD_REQUEST(400, "Bad Request..."),
     USER_NOT_FOUND(404, "User not found..."),
     SAME_PASSWORD_OCCURED(500, "Invalid Password, Can't use same Password..."),
+    PASSWORD_IS_NOT_MATCH(401, "Can't Login, Invalid password"),
     INTERNAL_SERVER_ERROR(500, "There is something wrong with the system");
-
-
-    //200("OK"),400("BAD REQUEST"),500("INTERNAL SERVER ERROR");
 
     private int code;
     private String message;

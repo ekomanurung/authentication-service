@@ -29,8 +29,9 @@ public class UserServiceImpl implements UserService {
     public Single<Boolean> normalRegistration(String username, String password) {
         return Single.create(subscriber -> {
             User user = new UserBuilder()
-                    .withActive(false)
+                    .withActive(true)
                     .withEnable(true)
+                    .withAccountExpired(true)
                     .withCounterFailed(0)
                     .withRegistrationMethod(RegistrationMethod.NORMAL)
                     .withUsername(username)

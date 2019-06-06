@@ -13,12 +13,13 @@ import java.util.Date;
 @Document(collection = "user")
 public class User extends BaseEntity implements Serializable {
 
-  private String username;
-  private String password;
-  private boolean active;
-  private boolean enable;
-  private RegistrationMethod registrationMethod;
-  private Date lastSuccessLogin;
-  private Date lastFailedLogin;
-  private int counterFailed;
+    private String username;
+    private String password;
+    private boolean active;
+    private boolean enable;
+    private boolean accountExpired;
+    private RegistrationMethod registrationMethod;
+    private Date lastSuccessLogin;
+    private Date lastFailedLogin;
+    private int counterFailed;
 }
