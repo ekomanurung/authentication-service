@@ -36,7 +36,7 @@
         <pojo.builder>2.3.3</pojo.builder>
         <mockito.version>2.11.0</mockito.version>
         <junit.version>4.12</junit.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.10.0</jackson.version>
     </properties>
 
     <parent>
