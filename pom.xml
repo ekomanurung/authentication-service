@@ -35,7 +35,7 @@
         <spring.boot.version>1.5.10.RELEASE</spring.boot.version>
         <pojo.builder>2.3.3</pojo.builder>
         <mockito.version>2.11.0</mockito.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <jackson.version>2.11.0</jackson.version>
     </properties>
 
