@@ -2,10 +2,10 @@ package com.gusuran.authentication.model.exception;
 
 public enum ErrorMapping {
 
-    OK(200, "Ok..."),
-    BAD_REQUEST(400, "Bad Request..."),
-    USER_NOT_FOUND(404, "User not found..."),
-    SAME_PASSWORD_OCCURED(500, "Invalid Password, Can't use same Password..."),
+    OK(200, "OK"),
+    BAD_REQUEST(400, "Bad Request"),
+    USER_NOT_FOUND(404, "User Not Found"),
+    SAME_PASSWORD_OCCURED(500, "Invalid Password, Can't use same Password."),
     INVALID_PASSWORD(401, "Can't Login, Invalid password"),
     ACCOUNT_EXPIRED(401, "Can't Login, Your Account already Expired"),
     ACCOUNT_DISABLED(401, "Can't Login, Your Account already disabled"),

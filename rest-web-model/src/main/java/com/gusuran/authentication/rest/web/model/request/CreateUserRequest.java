@@ -3,9 +3,7 @@ package com.gusuran.authentication.rest.web.model.request;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 
@@ -14,9 +12,9 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CreateUserRequest implements Serializable {
 
-  @NotEmpty
+  @NotBlank(message = "username must not be blank")
   private String username;
 
-  @NotEmpty
+  @NotBlank(message = "password must not be blank")
   private String password;
 }

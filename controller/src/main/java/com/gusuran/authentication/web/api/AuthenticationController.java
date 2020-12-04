@@ -25,26 +25,26 @@ public class AuthenticationController extends AbstractController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping("_normal")
+    @PostMapping("/_auth")
     public DeferredResult<Response<UserResponse>> authenticate(@RequestBody @Valid AuthenticationRequest request) {
         DeferredResult<Response<UserResponse>> result = new DeferredResult<>();
 
         authenticationService.normalAuthentication(request.getUsername(), request.getPassword())
                 .map(user -> BeanMapper.map(user, UserResponse.class))
                 .map(this::toResponse)
-                .subscribe(value -> result.setResult(value));
+                .subscribe(result::setResult);
 
         return result;
     }
 
-    @PostMapping("_google")
+    @PostMapping("/_google")
     public DeferredResult<Response<UserResponse>> googleAuthentication(@RequestBody @Valid AuthenticationRequest request) {
         DeferredResult<Response<UserResponse>> result = new DeferredResult<>();
 
         return result;
     }
 
-    @PostMapping("_facebook")
+    @PostMapping("/_facebook")
     public DeferredResult<Response<UserResponse>> facebookAuthentication(@RequestBody @Valid AuthenticationRequest request) {
         DeferredResult<Response<UserResponse>> result = new DeferredResult<>();
 

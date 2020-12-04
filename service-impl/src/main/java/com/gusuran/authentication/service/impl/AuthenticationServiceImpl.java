@@ -1,5 +1,6 @@
 package com.gusuran.authentication.service.impl;
 
+import com.gusuran.authentication.configuration.properties.AuthenticationProperties;
 import com.gusuran.authentication.model.User;
 import com.gusuran.authentication.model.exception.BusinessExceptionBuilder;
 import com.gusuran.authentication.model.exception.ErrorMapping;
@@ -17,11 +18,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationProperties authenticationProperties;
 
     @Autowired
-    public AuthenticationServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthenticationServiceImpl(UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        AuthenticationProperties authenticationProperties) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationProperties = authenticationProperties;
     }
 
     @Override
@@ -29,7 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return Single.create(subscriber -> {
             User currentUser = userRepository
                     .findByUsername(username)
-                    .map(user -> validateUserAccount(user))
+                    .map(this::validateUserAccount)
                     .map(user -> validateLogin(rawPassword, user))
                     .orElseThrow(() -> new BusinessExceptionBuilder()
                             .withErrorCode(ErrorMapping.USER_NOT_FOUND.getCode())
@@ -59,9 +64,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private User validateLogin(String rawPassword, User user) {
         if (!validatePasswordCredentials(rawPassword, user)) {
-            //TODO move this to dynamic constant
             int counterFailed = user.getCounterFailed() + 1;
-            if (counterFailed >= 3) {
+            if (counterFailed >= authenticationProperties.getMaxLoginAttempt()) {
                 user.setEnable(false);
             }
 

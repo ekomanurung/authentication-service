@@ -20,6 +20,9 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.gusuran.authentication</groupId>
+            <artifactId>configuration</artifactId>
+        </dependency>
     </dependencies>
-
 </project>

@@ -41,7 +41,7 @@ public class ErrorHelper {
         String errorMessage =
             messageSource.getMessage(fieldError.getCode(), fieldError.getArguments(),
                 fieldError.getDefaultMessage(), locale);
-        ((List) map.get(field)).add(errorMessage);
+        map.get(field).add(errorMessage);
       }
       return map;
     } else {
