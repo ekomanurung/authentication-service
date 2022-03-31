@@ -32,7 +32,7 @@
         <java.version>1.8</java.version>
         <apache.commons.lang3.version>3.5</apache.commons.lang3.version>
         <javax.persistence.version>1.0</javax.persistence.version>
-        <spring.boot.version>1.5.10.RELEASE</spring.boot.version>
+        <spring.boot.version>2.5.12</spring.boot.version>
         <pojo.builder>2.3.3</pojo.builder>
         <mockito.version>2.11.0</mockito.version>
         <junit.version>4.13.1</junit.version>
