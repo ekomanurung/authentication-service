@@ -26,7 +26,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <springfox.version>2.7.0</springfox.version>
         <jacoco.maven.plugin>0.7.4.201502262128</jacoco.maven.plugin>
-        <hibernate.version>4.3.6.Final</hibernate.version>
+        <hibernate.version>5.3.20.Final</hibernate.version>
         <orika.version>1.4.6</orika.version>
         <rx.java.version>1.2.1</rx.java.version>
         <java.version>1.8</java.version>
